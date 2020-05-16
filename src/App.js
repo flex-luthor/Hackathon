@@ -1,53 +1,22 @@
 import React from 'react';
-import { Column, Row } from 'simple-flexbox';
-import { StyleSheet, css } from 'aphrodite';
-import SidebarComponent from './components/sidebar/SidebarComponent';
-import HeaderComponent from './components/header/HeaderComponent';
-import ContentComponent from './components/content/ContentComponent';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+// import SignIn from './Pages/SignIn';
+import Home from './Pages/Home'
 
-const styles = StyleSheet.create({
-    container: {
-        height: '100%',
-        minHeight: '100vh'
-    },
-    content: {
-        marginTop: 54
-    },
-    mainBlock: {
-        backgroundColor: '#F7F8FC',
-        padding: 30
-    }
-});
 
-class App extends React.Component {
+import './App.scss';
 
-    state = { selectedItem: 'Tickets' };
-
-    componentDidMount() {
-        window.addEventListener('resize', this.resize);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.resize);
-    }
-
-    resize = () => this.forceUpdate();
-
-    render() {
-        const { selectedItem } = this.state;
-        return (
-            <Row className={css(styles.container)}>
-                <SidebarComponent selectedItem={selectedItem} onChange={(selectedItem) => this.setState({ selectedItem })} />
-                <Column flexGrow={1} className={css(styles.mainBlock)}>
-                    <HeaderComponent title={selectedItem} />
-                    <div className={css(styles.content)}>
-                        <ContentComponent />
-                    </div>
-                </Column>
-            </Row>
-        );
-    }
+function App() {
+  return (
+    <div className="App">
+      <Router>
+        <Switch>
+          {/* <Route path ='/signin' render={() => <SignIn />} /> */}
+          <Route path='/' render={() => <Home />} />
+        </Switch>
+      </Router>
+    </div>
+  );
 }
 
 export default App;
