@@ -9,14 +9,18 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         cursor: 'pointer',
         height: 70,
-        maxWidth: 350,
+        maxWidth: 450,
         padding: '24px 32px 24px 32px',
         ':hover': {
             borderColor: '#3751FF',
             ':nth-child(n) > span': {
                 color: '#3751FF'
             }
-        }
+        },
+        '@media (max-width: 968px)': {
+            marginTop: 20,
+        },
+        boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'
     },
     title: {
         color: '#9FA2B4',
@@ -31,7 +35,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     value: {
-        color: '#252733',
+        color: '#000239',
         fontFamily: 'Muli',
         fontStyle: 'normal',
         fontWeight: 'bold',

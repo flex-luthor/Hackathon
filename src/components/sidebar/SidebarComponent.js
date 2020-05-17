@@ -6,12 +6,10 @@ import MenuItemComponent from './MenuItemComponent';
 import IconOverview from '../../assets/icon-overview.js';
 import IconTickets from '../../assets/icon-tickets.js';
 import IconIdeas from '../../assets/icon-ideas.js';
-import IconContacts from '../../assets/icon-contacts';
-import IconAgents from '../../assets/icon-agents';
-import IconArticles from '../../assets/icon-articles';
+
 import IconSettings from '../../assets/icon-settings';
-import IconSubscription from '../../assets/icon-subscription';
-import IconBurger from '../../assets/icon-burger';
+import { faHome, faBars, faProjectDiagram } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const styles = StyleSheet.create({
     burgerIcon: {
@@ -21,7 +19,7 @@ const styles = StyleSheet.create({
         top: 34
     },
     container: {
-        backgroundColor: '#363740',
+        backgroundColor: '#000239',
         width: 255,
         paddingTop: 32,
         height: 'calc(100% - 32px)'
@@ -79,15 +77,9 @@ function SidebarComponent({ onChange, selectedItem }) {
     const [, updateState] = React.useState();
     const forceUpdate = useCallback(() => updateState({}), []);
 
-    /**
-     * This is to fix this issue:
-     * https://github.com/llorentegerman/react-admin-dashboard/issues/8
-     * I haven't been able to reproduce this bug in Safari 13.0.5 (14608.5.12)
-     */
     useEffect(() => {
         setIsMobile(window.innerWidth <= 768);
         forceUpdate();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [window.innerWidth]);
 
     const onItemClicked = item => {
@@ -100,7 +92,7 @@ function SidebarComponent({ onChange, selectedItem }) {
     const renderBurger = () => {
         return (
             <div onClick={toggleMenu} className={css(styles.burgerIcon)}>
-                <IconBurger />
+                <FontAwesomeIcon icon={faBars} size="xl" />
             </div>
         );
     };
@@ -130,40 +122,22 @@ function SidebarComponent({ onChange, selectedItem }) {
                     <LogoComponent />
                     <Column className={css(styles.menuItemList)}>
                         <MenuItemComponent
-                            title="Overview"
+                            title="Dashboard"
                             icon={IconOverview}
-                            onClick={() => onItemClicked('Overview')}
-                            active={selectedItem === 'Overview'}
+                            onClick={() => onItemClicked('Dashboard')}
+                            active={selectedItem === 'Dashboard'}
                         />
                         <MenuItemComponent
-                            title="Tickets"
+                            title="Students"
                             icon={IconTickets}
-                            onClick={() => onItemClicked('Tickets')}
-                            active={selectedItem === 'Tickets'}
+                            onClick={() => onItemClicked('Students')}
+                            active={selectedItem === 'Students'}
                         />
                         <MenuItemComponent
-                            title="Ideas"
+                            title="Projects"
                             icon={IconIdeas}
-                            onClick={() => onItemClicked('Ideas')}
-                            active={selectedItem === 'Ideas'}
-                        />
-                        <MenuItemComponent
-                            title="Contacts"
-                            icon={IconContacts}
-                            onClick={() => onItemClicked('Contacts')}
-                            active={selectedItem === 'Contacts'}
-                        />
-                        <MenuItemComponent
-                            title="Agents"
-                            icon={IconAgents}
-                            onClick={() => onItemClicked('Agents')}
-                            active={selectedItem === 'Agents'}
-                        />
-                        <MenuItemComponent
-                            title="Articles"
-                            icon={IconArticles}
-                            onClick={() => onItemClicked('Articles')}
-                            active={selectedItem === 'Articles'}
+                            onClick={() => onItemClicked('Projects')}
+                            active={selectedItem === 'Projects'}
                         />
                         <div className={css(styles.separator)}></div>
                         <MenuItemComponent
@@ -171,12 +145,6 @@ function SidebarComponent({ onChange, selectedItem }) {
                             icon={IconSettings}
                             onClick={() => onItemClicked('Settings')}
                             active={selectedItem === 'Settings'}
-                        />
-                        <MenuItemComponent
-                            title="Subscription"
-                            icon={IconSubscription}
-                            onClick={() => onItemClicked('Subscription')}
-                            active={selectedItem === 'Subscription'}
                         />
                     </Column>
                 </Column>

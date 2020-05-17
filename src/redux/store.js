@@ -10,4 +10,5 @@ const logger = store => next => action => {
 }; 
 
 
-export default applyMiddleware(thunk, logger)(createStore)(rootReducer);
+export default applyMiddleware(thunk, logger)(createStore)(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);

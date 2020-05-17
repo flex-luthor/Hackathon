@@ -1,9 +1,13 @@
 import React from 'react';
+import { useEffect, useRef, useState, Fragment } from 'react';
 import { string } from 'prop-types';
 import { Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
 import IconSearch from '../../assets/icon-search';
 import IconBellNew from '../../assets/icon-bell-new';
+import profile from '../../assets/profile.png'
+
+import MenuComponent from '../Menu'
 
 const styles = StyleSheet.create({
     avatar: {
@@ -65,8 +69,31 @@ const styles = StyleSheet.create({
     }
 });
 
+
+
 function HeaderComponent(props) {
     const { icon, title, ...otherProps } = props;
+    const [menu, setMenu] = useState(false);
+
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+          
+          function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+              setMenu(false);
+            }
+          }
+      
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+          };
+        }, [ref]);
+      }
+
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+
     return (
         <Row className={css(styles.container)} vertical="center" horizontal="space-between" {...otherProps}>
             <span className={css(styles.title)}>{title}</span>
@@ -79,8 +106,12 @@ function HeaderComponent(props) {
                 </div>
                 <div className={css(styles.separator)}></div>
                 <Row vertical="center">
-                    <span className={css(styles.name, styles.cursorPointer)}>Germán Llorente</span>
-                    <img src="https://avatars3.githubusercontent.com/u/21162888?s=460&v=4" alt="avatar" className={css(styles.avatar, styles.cursorPointer)} />
+                    <span className={css(styles.name, styles.cursorPointer)} onClick={() => {setMenu(!menu)}}>Arpit Bhardwaj</span>
+                    <img src={profile} alt="avatar" className={css(styles.avatar, styles.cursorPointer)} onClick={() => {setMenu(!menu)}}/>
+                    {menu ? (<div ref={wrapperRef} className={css(styles.wrapper)}>
+                                <MenuComponent />
+                             </div>
+                             ) : ''}
                 </Row>
             </Row>
         </Row>

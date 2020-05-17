@@ -1,0 +1,11 @@
+@media screen and (max-width: 1200px) {
+    .desktop1 {
+      display: none !important;
+    }
+  }
+
+@media screen and (max-width: 980px) {
+    .desktop2 {
+      display: none !important;
+    }
+  }
